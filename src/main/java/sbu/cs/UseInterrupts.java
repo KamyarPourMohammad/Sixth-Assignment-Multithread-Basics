@@ -36,7 +36,8 @@ public class UseInterrupts
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-
+                    System.out.println(this.getName() + " has been interrupted");
+                    break;
                 }
                 finally {
                     this.sleepCounter--;
@@ -71,6 +72,7 @@ public class UseInterrupts
                 i -= this.value;
 
             }
+            System.out.println(Thread.currentThread().getName() + " has been interrupted");
         }
     }
 
@@ -78,9 +80,14 @@ public class UseInterrupts
     You can add new code to the main function. This is where you must utilize interrupts.
     No existing line of code should be changed or deleted.
  */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SleepThread sleepThread = new SleepThread(5);
         sleepThread.start();
+
+        sleepThread.join(3000);
+        if(sleepThread.isAlive()){
+            sleepThread.interrupt();
+        }
 
         // TODO  Check if this thread runs for longer than 3 seconds (if it does, interrupt it)
 
@@ -89,5 +96,9 @@ public class UseInterrupts
 
         // TODO  Check if this thread runs for longer than 3 seconds (if it does, interrupt it)
 
+        loopThread.join(3000);
+        if(loopThread.isAlive()){
+            loopThread.interrupt();
+        }
     }
 }

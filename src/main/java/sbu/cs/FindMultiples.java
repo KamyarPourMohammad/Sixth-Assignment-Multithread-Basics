@@ -1,4 +1,5 @@
 package sbu.cs;
+import java.util.HashSet;
 
 /*
     In this exercise, you must write a multithreaded program that finds all
@@ -23,7 +24,19 @@ public class FindMultiples
 {
 
     // TODO create the required multithreading class/classes using your preferred method.
-
+    public static class task implements Runnable{
+        int counter,end;
+        HashSet<Integer> res = new HashSet<>();
+        public task(int counter,int end){
+            this.counter=counter;
+            this.end=end;
+        }
+        public void run(){
+            for(int i=0;i<end;i += counter){
+                res.add(i);
+            }
+        }
+}
 
     /*
     The getSum function should be called at the start of your program.
